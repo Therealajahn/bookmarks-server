@@ -9,7 +9,6 @@ markRouter.get("/", (req, res) => {
 
 markRouter.get("/:id", (req, res) => {
   const { id } = req.params;
-  r;
   const bookmark = store.find(b => b.id == id);
   if (!bookmark) {
     return res.status(404).send("No bookmark FOUND FFS!");
@@ -17,20 +16,21 @@ markRouter.get("/:id", (req, res) => {
   res.send(bookmark.mark);
 });
 
-markRouter.post("/:newMark", function addNewBookMark(req, res) {
-  const { newMark } = req.params;
+markRouter.post("/", function addNewBookMark(req, res) {
+
   const newId = uuid();
 
   const postMark = {
     id: newId,
-    mark: newMark
+    mark: "Chapter One"
   };
 
   store.push(postMark);
-  if (newMark) {
-    res.send(store);
-  }
-  res.sendStatus(400);
+
+  res
+      .json(postMark)
+      .send(store);
+  
 });
 
 markRouter.delete("/:id", (req, res) => {
