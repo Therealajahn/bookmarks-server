@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const cors = require("cors");
 const helmet = require("helmet");
@@ -25,6 +26,12 @@ app.use(function authorize(req, res, next) {
   }
 });
 
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+
+app.use(bodyParser.json());
+
 app.use("/bookmarks", markRouter);
 
 app.use(function errorHandler(error, req, res, next) {
@@ -37,5 +44,7 @@ app.use(function errorHandler(error, req, res, next) {
   }
   res.status(500).json(response);
 });
+
+
 
 module.exports = app;

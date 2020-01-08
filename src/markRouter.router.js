@@ -17,20 +17,19 @@ markRouter.get("/:id", (req, res) => {
 });
 
 markRouter.post("/", function addNewBookMark(req, res) {
-
   const newId = uuid();
-
+  console.log(req.body.mark);
+  const newMark = req.body.mark;
+  
   const postMark = {
     id: newId,
-    mark: "Chapter One"
-  };
-
+    mark: newMark
+  }
+  
   store.push(postMark);
 
-  res
-      .json(postMark)
-      .send(store);
-  
+  res  
+    .send(postMark);
 });
 
 markRouter.delete("/:id", (req, res) => {
